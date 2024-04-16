@@ -67,7 +67,7 @@ public class GameField extends JPanel implements ActionListener{
         super.paintComponent(g);
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("C:\\Users\\bukin\\Documents\\snake java\\untitled\\back.png"));
+            image = ImageIO.read(new File("back.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
