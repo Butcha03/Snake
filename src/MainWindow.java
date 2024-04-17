@@ -1,9 +1,9 @@
 import javax.swing.*;
 
 
-public class Main extends JFrame {
+public class MainWindow extends JFrame {
 
-    public Main(){
+    public MainWindow(){
         setTitle("Змейка");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(600,620);
@@ -13,6 +13,6 @@ public class Main extends JFrame {
     }
 
     public static void main(String[] args) {
-        Main mw = new Main();
+        MainWindow mw = new MainWindow();
     }
 }
