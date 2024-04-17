@@ -55,9 +55,9 @@ public class GameField extends JPanel implements ActionListener{
     }
 
     public void loadImages(){
-        ImageIcon iia = new ImageIcon("apple.png");
+        ImageIcon iia = new ImageIcon("resources/Images/apple.png");
         apple = iia.getImage    ();
-        ImageIcon iid = new ImageIcon("dot.png");
+        ImageIcon iid = new ImageIcon("resources/Images/dot.png");
         dot = iid.getImage();
 
     }
@@ -67,7 +67,7 @@ public class GameField extends JPanel implements ActionListener{
         super.paintComponent(g);
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File("back.png"));
+            image = ImageIO.read(new File("resources/Images/back.png"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
