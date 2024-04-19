@@ -9,10 +9,7 @@ public class MainWindow extends JFrame {
         setSize(600,620);
         setLocation(750,250);
         add(new GameField());
-        setVisible(true);
-    }
 
-    public static void main(String[] args) {
-        MainWindow mw = new MainWindow();
+        setVisible(true);
     }
 }
