@@ -7,6 +7,8 @@ public class Snake {
     public Snake(Image body, Image Head) {
         this.body = body;
         this.Head = Head;
+
+
     }
 
 }
