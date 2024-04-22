@@ -3,28 +3,34 @@ import java.awt.*;
 
 public class Snake {
     private Image bodyImage;
+    private Image headImage;
     private Image[] headImages;
 
     public Snake(Image bodyImage, Image[] headImages) {
         this.bodyImage = bodyImage;
         this.headImages = headImages;
+        this.headImage = headImages[0];
     }
 
     public Image getBodyImage() {
         return bodyImage;
     }
 
-    public Image getHeadRightImages() {
-        return headImages[0];
+    public Image getHeadImage(){
+        return headImage;
     }
 
-    public Image getHeadDownImages() {
-        return headImages[1];
+    public void turnHeadRight() {
+         headImage = headImages[0];
     }
-    public Image getHeadLeftImages() {
-        return headImages[2];
+
+    public void turnHeadDown() {
+        headImage = headImages[1];
     }
-    public Image getHeadUpImages() {
-        return headImages[3];
+    public void turnHeadLeft() {
+        headImage = headImages[2];
+    }
+    public void turnHeadUp() {
+        headImage = headImages[3];
     }
 }
