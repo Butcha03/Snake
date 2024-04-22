@@ -28,7 +28,9 @@ public class GameField extends JPanel implements ActionListener{
     private boolean up = false;
     private boolean down = false;
     private boolean inGame = true;
+    private Image headSnake;
 
+    Snake snake = new Snake();
 
     public GameField(){
         loadImages();
@@ -56,8 +58,9 @@ public class GameField extends JPanel implements ActionListener{
     public void loadImages(){
         ImageIcon iia = new ImageIcon("resources/Images/apple.png");
         apple = iia.getImage    ();
-        ImageIcon iid = new ImageIcon("resources/Images/dot.png");
-        dot = iid.getImage();
+        //ImageIcon iid = new ImageIcon("resources/Images/dot.png");
+        //dot = iid.getImage();
+        headSnake = snake.getHeadRightImages();
 
     }
 
@@ -73,8 +76,9 @@ public class GameField extends JPanel implements ActionListener{
         g.drawImage(image, 0, 0, this);
         if(inGame){
             g.drawImage(apple,appleX,appleY,this);
-            for (int i = 0; i < dots; i++) {
-                g.drawImage(dot,x[i],y[i],this);
+            for (int i = 1; i < dots; i++) {
+                g.drawImage(headSnake,x[0],y[0],this);
+                g.drawImage(snake.getBodyImage(),x[i],y[i],this);
             }
         } else {
             String str = "Game Over";
@@ -137,7 +141,6 @@ public class GameField extends JPanel implements ActionListener{
             checkApple();
             checkCollisions();
             move();
-
         }
         repaint();
     }
@@ -151,22 +154,26 @@ public class GameField extends JPanel implements ActionListener{
                 left = true;
                 up = false;
                 down = false;
+                headSnake = snake.getHeadLeftImages();
             }
             if(key == KeyEvent.VK_RIGHT && !left){
                 right = true;
                 up = false;
                 down = false;
+                headSnake = snake.getHeadRightImages();
             }
 
             if(key == KeyEvent.VK_UP && !down){
                 right = false;
                 up = true;
                 left = false;
+                headSnake = snake.getHeadUpImages();
             }
             if(key == KeyEvent.VK_DOWN && !up){
                 right = false;
                 down = true;
                 left = false;
+                headSnake = snake.getHeadDownImages();
             }
         }
     }
