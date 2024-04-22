@@ -28,12 +28,15 @@ public class GameField extends JPanel implements ActionListener{
     private boolean up = false;
     private boolean down = false;
     private boolean inGame = true;
+    private Snake snake;
     private Image headSnake;
 
-    Snake snake = new Snake();
-
     public GameField(){
-        loadImages();
+        apple = loadImageApple();
+        Image[] snakeHead = loadImagesSnakeHead();
+        Image snakeBody = loadImageSnakeBody();
+        this.snake = new Snake(snakeBody, snakeHead);
+        headSnake = snake.getHeadRightImages();
         initGame();
         addKeyListener(new FieldKeyListener());
         setFocusable(true);
@@ -55,13 +58,20 @@ public class GameField extends JPanel implements ActionListener{
         appleY = new Random().nextInt(20)*DOT_SIZE;
     }
 
-    public void loadImages(){
-        ImageIcon iia = new ImageIcon("resources/Images/apple.png");
-        apple = iia.getImage    ();
-        //ImageIcon iid = new ImageIcon("resources/Images/dot.png");
-        //dot = iid.getImage();
-        headSnake = snake.getHeadRightImages();
+    public Image loadImageApple(){
+        return new ImageIcon("resources/Images/apple.png").getImage();
+    }
+    public Image loadImageSnakeBody(){
+        return new ImageIcon("resources/Images/Snake/dot.png").getImage();
+    }
 
+    public Image[] loadImagesSnakeHead(){
+        Image[] headImages = new Image[4];
+        headImages[0] = new ImageIcon("resources/Images/Snake/HeadRight.png").getImage();
+        headImages[1] = new ImageIcon("resources/Images/Snake/HeadDown.png").getImage();
+        headImages[2] = new ImageIcon("resources/Images/Snake/HeadLeft.png").getImage();
+        headImages[3] = new ImageIcon("resources/Images/Snake/HeadUp.png").getImage();
+        return headImages;
     }
 
     @Override
