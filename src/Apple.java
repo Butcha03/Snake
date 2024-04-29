@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.Random;
 
-public class Apples extends GameField {
+public class Apple implements Item {
     private final int DOT_SIZE = 20;
     private Image dot;
     private int appleX;
@@ -10,5 +10,4 @@ public class Apples extends GameField {
         appleX = new Random().nextInt(20)*DOT_SIZE;
         appleY = new Random().nextInt(20)*DOT_SIZE;
     }
-
 }

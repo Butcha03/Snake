@@ -17,16 +17,10 @@ public class GameMenu extends JFrame {
 
         // Get the screen size to center the window
         CenterAlignment();
-
-        JLabel titleLabel = getTitleLabel();
-        add(titleLabel);
-
-        JButton startGameButton = getStartGameButton();
-        JButton settingsButton = getSettingsButton();
-        JButton exitButton = getExitButton();
-        add(startGameButton);
-        add(settingsButton);
-        add(exitButton);
+        add(getTitleLabel());
+        add(createStartGameButton());
+        add(createSettingsButton());
+        add(createExitButton());
 
         setLayout(null); // Используем абсолютное позиционирование
         setVisible(true);
@@ -47,39 +41,52 @@ public class GameMenu extends JFrame {
         setLocation(x, y);
     }
 
-    private static JButton getExitButton() {
+    private static JButton createExitButton() {
         JButton exitButton = new JButton("Выход");
         exitButton.setBounds(250, 300, 100, 30);
         exitButton.setBackground(new Color(139, 0, 0)); // Темно-красный цвет
         exitButton.setForeground(Color.WHITE); // Белый текст
+        actionExitButton(exitButton);
+        return exitButton;
+    }
+
+    private static void actionExitButton(JButton exitButton) {
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
-        return exitButton;
     }
 
-    private static JButton getSettingsButton() {
+    private static JButton createSettingsButton() {
         JButton settingsButton = new JButton("Настройки");
         settingsButton.setBounds(250, 250, 100, 30);
         settingsButton.setBackground(new Color(0, 128, 0)); // Зеленый цвет
         settingsButton.setForeground(Color.WHITE); // Белый текст
+        actionSettingButton(settingsButton);
+        return settingsButton;
+    }
+
+    private static void actionSettingButton(JButton settingsButton) {
         settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Открыть настройки");
             }
         });
-        return settingsButton;
     }
 
-    private JButton getStartGameButton() {
+    private JButton createStartGameButton() {
         JButton startGameButton = new JButton("Играть");
         startGameButton.setBounds(250, 200, 100, 30);
         startGameButton.setBackground(new Color(0, 128, 0));
         startGameButton.setForeground(Color.WHITE);
+        actionGameButton(startGameButton);
+        return startGameButton;
+    }
+
+    private void actionGameButton(JButton startGameButton) {
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,6 +95,5 @@ public class GameMenu extends JFrame {
                 MainWindow mainWindow = new MainWindow();
             }
         });
-        return startGameButton;
     }
 }

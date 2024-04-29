@@ -53,6 +53,7 @@ public class GameField extends JPanel implements ActionListener{
     public void createApple(){
         appleX = new Random().nextInt(20)*DOT_SIZE;
         appleY = new Random().nextInt(20)*DOT_SIZE;
+
     }
 
     public Image loadImageApple(){
@@ -182,6 +183,12 @@ public class GameField extends JPanel implements ActionListener{
                 left = false;
                 snake.turnHeadDown();
             }
+            if(key == KeyEvent.VK_5 && timer.isRunning()){
+                timer.stop();
+            }else {
+                timer.start();
+            }
+
         }
     }
 
