@@ -7,15 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GameMenu extends JFrame {
-    private static boolean gameMenuOpen;
+
+    private boolean gameMenuVisible;
     public GameMenu(){
-        gameMenuOpen = true;
+        gameMenuVisible = true;
         setTitle("Меню");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(600,620);
         getContentPane().setBackground(new Color(139, 69, 19));
 
-        // Get the screen size to center the window
         CenterAlignment();
         add(getTitleLabel());
         add(createStartGameButton());
@@ -23,7 +23,7 @@ public class GameMenu extends JFrame {
         add(createExitButton());
 
         setLayout(null); // Используем абсолютное позиционирование
-        setVisible(true);
+        setVisible(gameMenuVisible);
     }
 
     private static JLabel getTitleLabel() {
@@ -72,7 +72,7 @@ public class GameMenu extends JFrame {
         settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Открыть настройки");
+
             }
         });
     }
@@ -90,9 +90,8 @@ public class GameMenu extends JFrame {
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameMenuOpen = false;
-                setVisible(gameMenuOpen);
-                MainWindow mainWindow = new MainWindow();
+                setVisible(gameMenuVisible = false);
+                new MainWindow();
             }
         });
     }
