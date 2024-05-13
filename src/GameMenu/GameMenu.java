@@ -1,3 +1,5 @@
+package GameMenu;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -5,16 +7,15 @@ import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import GameLogic.*;
 
 public class GameMenu extends JFrame {
-    private static boolean gameMenuOpen;
+
     public GameMenu(){
-        gameMenuOpen = true;
         setTitle("Меню");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(600,620);
         getContentPane().setBackground(new Color(139, 69, 19));
-
         // Get the screen size to center the window
         CenterAlignment();
         add(getTitleLabel());
@@ -24,6 +25,7 @@ public class GameMenu extends JFrame {
 
         setLayout(null); // Используем абсолютное позиционирование
         setVisible(true);
+
     }
 
     private static JLabel getTitleLabel() {
@@ -43,7 +45,7 @@ public class GameMenu extends JFrame {
 
     private static JButton createExitButton() {
         JButton exitButton = new JButton("Выход");
-        exitButton.setBounds(250, 300, 100, 30);
+        exitButton.setBounds(200, 300, 200, 30);
         exitButton.setBackground(new Color(139, 0, 0)); // Темно-красный цвет
         exitButton.setForeground(Color.WHITE); // Белый текст
         actionExitButton(exitButton);
@@ -61,7 +63,7 @@ public class GameMenu extends JFrame {
 
     private static JButton createSettingsButton() {
         JButton settingsButton = new JButton("Настройки");
-        settingsButton.setBounds(250, 250, 100, 30);
+        settingsButton.setBounds(200, 250, 200, 30);
         settingsButton.setBackground(new Color(0, 128, 0)); // Зеленый цвет
         settingsButton.setForeground(Color.WHITE); // Белый текст
         actionSettingButton(settingsButton);
@@ -79,20 +81,20 @@ public class GameMenu extends JFrame {
 
     private JButton createStartGameButton() {
         JButton startGameButton = new JButton("Играть");
-        startGameButton.setBounds(250, 200, 100, 30);
+        startGameButton.setBounds(200, 200, 200, 30);
         startGameButton.setBackground(new Color(0, 128, 0));
         startGameButton.setForeground(Color.WHITE);
-        actionGameButton(startGameButton);
+        actionStartGameButton(startGameButton);
         return startGameButton;
     }
 
-    private void actionGameButton(JButton startGameButton) {
+    private void actionStartGameButton(JButton startGameButton) {
         startGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameMenuOpen = false;
-                setVisible(gameMenuOpen);
-                MainWindow mainWindow = new MainWindow();
+                setVisible(false);
+                new SelectingGameMode ();
+                //GameWindow gameWindow = new GameWindow();
             }
         });
     }

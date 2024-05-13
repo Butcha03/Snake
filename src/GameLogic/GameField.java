@@ -1,3 +1,7 @@
+package GameLogic;
+
+import Snake.Snake;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +37,7 @@ public class GameField extends JPanel implements ActionListener{
         apple = loadImageApple();
         Image[] snakeHead = loadImagesSnakeHead();
         Image snakeBody = loadImageSnakeBody();
-        snake = new Snake(snakeBody, snakeHead);
+        snake = new Snake(snakeBody, snakeHead, 0, 0);
         initGame();
         addKeyListener(new FieldKeyListener());
         setFocusable(true);
