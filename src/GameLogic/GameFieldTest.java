@@ -40,6 +40,7 @@ public class GameFieldTest extends JPanel implements ActionListener {
         setFocusable(true);
 
         createItem(new Apple());
+        createItem(new GoldApple());
 
         this.gameTimer = new Timer(100, this);
         this.gameTimer.start();
