@@ -1,8 +1,10 @@
-import GameMenu.GameMenu;
+import GameMenu.Menu;
+import GameMenu.MenuWindow;
 
 public class Main {
 
     public static void main(String[] args) {
-        GameMenu gm = new GameMenu();
+        MenuWindow gm = new MenuWindow();
+
     }
 }
