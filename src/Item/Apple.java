@@ -7,10 +7,6 @@ import java.awt.*;
 
 public class Apple extends AbstractItem {
     Image appleImage;
-    public Apple() {
-        setImage();
-        create();
-    }
 
     @Override
     public Image getImage() {

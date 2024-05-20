@@ -54,12 +54,12 @@ public class SelectingGameMode extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);
-                new GameMenu();
+                new MenuWindow();
             }
         });
     }
 
-    private static JButton createSettingsButton() {
+    private JButton createSettingsButton() {
         JButton settingsButton = new JButton("Игра в двоем");
         settingsButton.setBounds(200, 250, 200, 30);
         settingsButton.setBackground(new Color(0, 128, 0)); // Зеленый цвет
@@ -68,11 +68,12 @@ public class SelectingGameMode extends JFrame {
         return settingsButton;
     }
 
-    private static void actionSettingButton(JButton settingsButton) {
+    private void actionSettingButton(JButton settingsButton) {
         settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Открыть настройки");
+                setVisible(false);
+                GameWindow gameWindow = new GameWindow();
             }
         });
     }

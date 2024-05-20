@@ -13,10 +13,10 @@ public class Snake {
     private int sizeSnake;
     public int[] x = new int[SIZE];
     public int[] y = new int[SIZE];
-    public boolean left = false;
-    public boolean right = true;
-    public boolean up = false;
-    public boolean down = false;
+    private boolean left = false;
+    private boolean right = true;
+    private boolean up = false;
+    private boolean down = false;
 
     public Snake(Image bodyImage, Image[] headImages)
     {
@@ -37,6 +37,37 @@ public class Snake {
         this.headImage = headImages[0];
     }
 
+    public void setLeftMove(boolean leftMove){
+        left = leftMove;
+    }
+
+    public boolean getLeftMove(){
+        return left;
+    }
+
+    public void setRightMove(boolean rightMove){
+        right = rightMove;
+    }
+
+    public boolean getRightMove(){
+        return right;
+    }
+
+    public void setUpMove(boolean upMove){
+        up = upMove;
+    }
+
+    public boolean getUpMove(){
+        return up;
+    }
+
+    public void setDownMove(boolean downMove){
+        down = downMove;
+    }
+
+    public boolean getDownMove(){
+        return down;
+    }
 
     public Image getBodyImage() {
         return bodyImage;
@@ -91,7 +122,6 @@ public class Snake {
                 GameState.inGame = false;
             }
         }
-
         if(x[0]>=SIZE){
             GameState.inGame = false;
         }
@@ -103,6 +133,17 @@ public class Snake {
         }
         if(y[0]<0){
             GameState.inGame = false;
+        }
+    }
+
+    public void checkEnemySnake(Snake enemySnake) {
+
+        for(int i = enemySnake.getSizeSnake(); i >  0; i--)
+        {
+            if(x[0] == enemySnake.x[i] && y[0] == enemySnake.y[i])
+            {
+                GameState.inGame = false;
+            }
         }
     }
 

@@ -7,14 +7,16 @@ import javax.swing.JLabel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import GameLogic.*;
 
-public class GameMenu extends JFrame {
+public class MenuWindow extends JFrame {
 
-    public GameMenu(){
+    private final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+
+    public MenuWindow(){
         setTitle("Меню");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(600,620);
+        setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
         getContentPane().setBackground(new Color(139, 69, 19));
         // Get the screen size to center the window
         CenterAlignment();
