@@ -40,21 +40,21 @@ public class GameFieldTest extends JPanel implements ActionListener {
         addKeyListener(new FieldKeyListener());
         FieldKeyListener2 fieldKeyListener2 = new FieldKeyListener2();
         addKeyListener(new FieldKeyListener2());
-        setFocusable(true);
 
         createItem(new Apple());
         createItem(new GoldApple());
 
         this.gameTimer = new Timer(130, this);
         this.gameTimer.start();
+        setFocusable(true);
         GameState.startGame();
 
     }
 
     private void initSnake(Snake snake, int x, int y) {
         for (int i = 0; i < snake.getSizeSnake(); i++) {
-            snake.x[i] = (60+x*20) - i*DOT_SIZE;
-            snake.y[i] = (60+y*20);
+            snake.setX((60+x*20) - i*DOT_SIZE, i);
+            snake.setY(60+y*20, i);
         }
     }
 
@@ -87,13 +87,13 @@ public class GameFieldTest extends JPanel implements ActionListener {
                 g.drawImage(listItem.get(i).getImage(), listItem.get(i).getX(), listItem.get(i).getY(), this);
             }
             for(int i = 1; i < snake.getSizeSnake(); i++){
-                g.drawImage(snake.getHeadImage(), snake.x[0], snake.y[0], this);
-                g.drawImage(snake.getBodyImage(), snake.x[i], snake.y[i], this);
+                g.drawImage(snake.getHeadImage(), snake.getX(0), snake.getY(0), this);
+                g.drawImage(snake.getBodyImage(), snake.getX(i), snake.getY(i), this);
             }
             for (int i = 1; i < snake2.getSizeSnake(); i++)
             {
-                g.drawImage(snake2.getHeadImage(), snake2.x[0], snake2.y[0], this);
-                g.drawImage(snake2.getBodyImage(), snake2.x[i], snake2.y[i], this);
+                g.drawImage(snake2.getHeadImage(), snake2.getX(0), snake2.getY(0), this);
+                g.drawImage(snake2.getBodyImage(), snake2.getX(i), snake2.getY(i), this);
             }
         }
     }

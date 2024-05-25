@@ -11,8 +11,8 @@ public class Snake {
     private Image[] headImages;
     private int speed;
     private int sizeSnake;
-    public int[] x = new int[SIZE];
-    public int[] y = new int[SIZE];
+    private int[] x = new int[SIZE];
+    private int[] y = new int[SIZE];
     private boolean left = false;
     private boolean right = true;
     private boolean up = false;
@@ -114,6 +114,19 @@ public class Snake {
 
     public void setSizeSnake(int sizeSnake) {
         this.sizeSnake = sizeSnake;
+    }
+
+    public int getX(int i) {
+        return x[i];
+    }
+    public int getY(int i) {
+        return y[i];
+    }
+    public void setX(int x, int i) {
+        this.x[i] = x;
+    }
+    public void setY(int y, int i) {
+        this.y[i] = y;
     }
 
     public void checkCollisions(){
