@@ -1,9 +1,9 @@
 import gameMenu.MenuWindow;
-
+import menu.Menu;
 public class Main {
 
     public static void main(String[] args) {
-        MenuWindow gm = new MenuWindow();
+        new Menu();
 
     }
 }

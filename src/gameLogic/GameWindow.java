@@ -5,8 +5,8 @@ import java.awt.*;
 
 
 public class GameWindow extends JFrame {
-    private final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private final int WINDOW_WIDTH = 1000;
+    private final int WINDOW_HEIGHT = 800;
     public GameWindow(){
         initWindow();
         add(new GameField());
