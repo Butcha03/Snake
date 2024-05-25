@@ -13,8 +13,8 @@ import item.*;
 import player.*;
 
 public class GameField extends JPanel implements ActionListener {
-    private final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private final int WINDOW_WIDTH = 800;
+    private final int WINDOW_HEIGHT = 1000;
     public static final int SIZE = 600;
     public static final int DOT_SIZE = 20;
     public static final int ALL_DOTS = 900;
