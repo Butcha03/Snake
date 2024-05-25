@@ -1,6 +1,6 @@
-package GameLogic;
+package gameLogic;
 
-import Snake.Snake;
+import snake.Snake;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

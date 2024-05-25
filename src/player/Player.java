@@ -1,6 +1,6 @@
-package Player;
+package player;
 
-import Snake.Snake;
+import snake.Snake;
 
 import javax.swing.*;
 import java.awt.*;

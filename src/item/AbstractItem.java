@@ -1,6 +1,6 @@
-package Item;
-import Snake.Snake;
-import javax.swing.*;
+package item;
+import snake.Snake;
+
 import java.awt.*;
 import java.util.Random;
 

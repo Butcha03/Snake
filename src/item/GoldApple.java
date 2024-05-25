@@ -1,6 +1,6 @@
-package Item;
+package item;
 
-import Snake.Snake;
+import snake.Snake;
 
 import javax.swing.*;
 import java.awt.*;

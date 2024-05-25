@@ -1,5 +1,5 @@
-package Snake;
-import GameLogic.*;
+package snake;
+import gameLogic.*;
 import java.awt.*;
 
 public class Snake {

@@ -1,26 +1,26 @@
-package GameLogic;
-
-import GameLogic.GameFieldTest;
+package gameMenu;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-public class GameWindow extends JFrame {
+public class Menu extends JFrame {
     private final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
-    public GameWindow(){
-        initWindow();
-        add(new GameFieldTest());
+
+    public Menu() {
+        initMenu();
+        CardLayout cardLayout = new CardLayout();
+        JPanel cards = new JPanel(cardLayout);
+        StartMenu startMenu = new StartMenu();
+
     }
 
-    private void initWindow() {
-        setTitle("Змейка");
+    private void initMenu() {
+        setTitle("Menu");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
-        setResizable(false);
-        setLocationRelativeTo(null);
+        getContentPane().setBackground(new Color(139, 69, 19));
         setVisible(true);
     }
-
 }

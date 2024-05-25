@@ -1,6 +1,6 @@
-package GameLogic;
+package gameLogic;
 
-import Snake.*;
+import snake.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,8 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import Item.*;
-import Player.*;
+import item.*;
+import player.*;
 
 public class GameFieldTest extends JPanel implements ActionListener {
     private final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;

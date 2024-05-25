@@ -1,4 +1,4 @@
-package GameMenu;
+package gameMenu;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,5 +1,4 @@
-import GameMenu.Menu;
-import GameMenu.MenuWindow;
+import gameMenu.MenuWindow;
 
 public class Main {
 
