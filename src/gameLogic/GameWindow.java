@@ -9,7 +9,7 @@ public class GameWindow extends JFrame {
     private final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     public GameWindow(){
         initWindow();
-        add(new GameFieldTest());
+        add(new GameField());
     }
 
     private void initWindow() {

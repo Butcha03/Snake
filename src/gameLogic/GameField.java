@@ -1,200 +1,204 @@
 package gameLogic;
 
-import snake.Snake;
+import snake.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
+import java.util.ArrayList;
+import item.*;
+import player.*;
 
-
-public class GameField extends JPanel implements ActionListener{
-    private final int SIZE = 600;
-    private final int DOT_SIZE = 20;
-    private final int ALL_DOTS = 900;
-    private Image apple;
-    private int appleX;
-    private int appleY;
-    private int[] x = new int[ALL_DOTS];
-    private int[] y = new int[ALL_DOTS];
-    private int dots;
-    private Timer timer;
-    private boolean left = false;
-    private boolean right = true;
-    private boolean up = false;
-    private boolean down = false;
-    private boolean inGame = true;
+public class GameField extends JPanel implements ActionListener {
+    private final int WINDOW_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private final int WINDOW_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    public static final int SIZE = 600;
+    public static final int DOT_SIZE = 20;
+    public static final int ALL_DOTS = 900;
+    private Timer gameTimer;
+    private Image backgroundImage;
     private Snake snake;
+    private Snake snake2;
+
+    private ArrayList<AbstractItem> listItem = new ArrayList<>();
 
     public GameField(){
-        apple = loadImageApple();
-        Image[] snakeHead = loadImagesSnakeHead();
-        Image snakeBody = loadImageSnakeBody();
-        snake = new Snake(snakeBody, snakeHead, 0, 0);
-        initGame();
+
+        Player player = new Player();
+        Player player2 = new Player();
+
+        this.snake = player.getSnake();
+        initSnake(this.snake,0, 0);
+
+        this.snake2 = player2.getSnake();
+        initSnake(this.snake2, 0, 10);
+
+        this.backgroundImage = new ImageIcon("resources/Images/back.png").getImage();
         addKeyListener(new FieldKeyListener());
+        FieldKeyListener2 fieldKeyListener2 = new FieldKeyListener2();
+        addKeyListener(new FieldKeyListener2());
+
+        createItem(new Apple());
+        createItem(new GoldApple());
+
+        this.gameTimer = new Timer(130, this);
+        this.gameTimer.start();
         setFocusable(true);
+        GameState.startGame();
+
     }
 
-    public void initGame(){
-        dots = 3;
-        for (int i = 0; i < dots; i++) {
-            x[i] = 60 - i*DOT_SIZE;
-            y[i] = 60;
+    private void initSnake(Snake snake, int x, int y) {
+        for (int i = 0; i < snake.getSizeSnake(); i++) {
+            snake.setX((60+x*20) - i*DOT_SIZE, i);
+            snake.setY(60+y*20, i);
         }
-        timer = new Timer(250,this);
-        timer.start();
-        createApple();
     }
 
-    public void createApple(){
-        appleX = new Random().nextInt(20)*DOT_SIZE;
-        appleY = new Random().nextInt(20)*DOT_SIZE;
-
+    private void createItem(AbstractItem item)
+    {
+        listItem.add(item);
     }
 
-    public Image loadImageApple(){
-        return new ImageIcon("resources/Images/apple.png").getImage();
-    }
-    public Image loadImageSnakeBody(){
-        return new ImageIcon("resources/Images/Snake/dot.png").getImage();
+    private void checkItem(Snake snake)
+    {
+        for (int i = 0; i < listItem.size(); i++)
+        {
+            if(snake.getHeadX() == listItem.get(i).getX() &&
+                    snake.getHeadY() == listItem.get(i).getY())
+            {
+                AbstractItem item = listItem.get(i);
+                item.interaction(snake);
+                item.create();
+                listItem.remove(i);
+                listItem.add(item);
+            }
+        }
     }
 
-    public Image[] loadImagesSnakeHead(){
-        Image[] headImages = new Image[4];
-        headImages[0] = new ImageIcon("resources/Images/Snake/HeadRight.png").getImage();
-        headImages[1] = new ImageIcon("resources/Images/Snake/HeadDown.png").getImage();
-        headImages[2] = new ImageIcon("resources/Images/Snake/HeadLeft.png").getImage();
-        headImages[3] = new ImageIcon("resources/Images/Snake/HeadUp.png").getImage();
-        return headImages;
-    }
-
-    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File("resources/Images/back.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        g.drawImage(image, 0, 0, this);
-        if(inGame){
-            g.drawImage(apple,appleX,appleY,this);
-            for (int i = 1; i < dots; i++) {
-                g.drawImage(snake.getHeadImage(),x[0],y[0],this);
-                g.drawImage(snake.getBodyImage(),x[i],y[i],this);
+        g.drawImage(backgroundImage,0, 0 , this);
+        if(GameState.inGame){
+            for(int i = 0; i < listItem.size(); i++){
+                g.drawImage(listItem.get(i).getImage(), listItem.get(i).getX(), listItem.get(i).getY(), this);
             }
-        } else {
-            String str = "Game Over";
-            Font f = new Font("Arial", Font.BOLD, 14);
-            g.setColor(Color.white);
-            g.setFont(g.getFont().deriveFont(Font.BOLD));
-            g.setFont(f);
-            g.drawString(str, 200, 320);
-        }
-    }
-
-    public void move(){
-        for (int i = dots; i > 0; i--) {
-            x[i] = x[i-1];
-            y[i] = y[i-1];
-        }
-        if(left){
-            x[0] -= DOT_SIZE;
-        }
-        if(right){
-            x[0] += DOT_SIZE;
-        } if(up){
-            y[0] -= DOT_SIZE;
-        } if(down){
-            y[0] += DOT_SIZE;
-        }
-    }
-
-    public void checkApple(){
-        if(x[0] == appleX && y[0] == appleY){
-            dots++;
-            createApple();
-        }
-    }
-
-    public void checkCollisions(){
-        for (int i = dots; i >0 ; i--) {
-            if(i>4 && x[0] == x[i] && y[0] == y[i]){
-                inGame = false;
+            for(int i = 1; i < snake.getSizeSnake(); i++){
+                g.drawImage(snake.getHeadImage(), snake.getX(0), snake.getY(0), this);
+                g.drawImage(snake.getBodyImage(), snake.getX(i), snake.getY(i), this);
+            }
+            for (int i = 1; i < snake2.getSizeSnake(); i++)
+            {
+                g.drawImage(snake2.getHeadImage(), snake2.getX(0), snake2.getY(0), this);
+                g.drawImage(snake2.getBodyImage(), snake2.getX(i), snake2.getY(i), this);
             }
         }
-
-        if(x[0]>SIZE){
-            inGame = false;
-        }
-        if(x[0]<0){
-            inGame = false;
-        }
-        if(y[0]>SIZE){
-            inGame = false;
-        }
-        if(y[0]<0){
-            inGame = false;
-        }
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(inGame){
-            checkApple();
-            checkCollisions();
-            move();
+        if(GameState.inGame){
+            snake.checkCollisions();
+            snake.checkEnemySnake(snake2);
+            snake.move();
+            snake2.checkCollisions();
+            snake2.checkEnemySnake(snake);
+            snake2.move();
+
+            checkItem(snake);
+            checkItem(snake2);
         }
         repaint();
+
     }
 
-    class FieldKeyListener extends KeyAdapter{
+    class FieldKeyListener extends KeyAdapter {
+        private int leftKey = KeyEvent.VK_LEFT;
+        private int rightKey = KeyEvent.VK_RIGHT;
+        private int upKey = KeyEvent.VK_UP;
+        private int downKey = KeyEvent.VK_DOWN;
+
+        public void updateControlKeys(int newLeftKey, int newRightKey, int newUpKey, int newDownKey) {
+            leftKey = newLeftKey;
+            rightKey = newRightKey;
+            upKey = newUpKey;
+            downKey = newDownKey;
+        }
         @Override
         public void keyPressed(KeyEvent e) {
+
             super.keyPressed(e);
             int key = e.getKeyCode();
-            if(key == KeyEvent.VK_LEFT && !right){
-                left = true;
-                up = false;
-                down = false;
+            if(key == leftKey && !snake.getRightMove()){
+                snake.setLeftMove(true);
+                snake.setUpMove(false);
+                snake.setDownMove(false);
                 snake.turnHeadLeft();
             }
-            if(key == KeyEvent.VK_RIGHT && !left){
-                right = true;
-                up = false;
-                down = false;
+            if(key == rightKey && !snake.getLeftMove()){
+                snake.setRightMove(true);
+                snake.setUpMove(false);
+                snake.setDownMove(false);
                 snake.turnHeadRight();
             }
 
-            if(key == KeyEvent.VK_UP && !down){
-                right = false;
-                up = true;
-                left = false;
+            if(key == upKey && !snake.getDownMove()){
                 snake.turnHeadUp();
+                snake.setRightMove(false);
+                snake.setUpMove(true);
+                snake.setLeftMove(false);
+
             }
-            if(key == KeyEvent.VK_DOWN && !up){
-                right = false;
-                down = true;
-                left = false;
+            if(key == downKey && !snake.getUpMove()){
                 snake.turnHeadDown();
+                snake.setRightMove(false);
+                snake.setDownMove(true);
+                snake.setLeftMove(false);
             }
-            if(key == KeyEvent.VK_5 && timer.isRunning()){
-                timer.stop();
+            if(key == KeyEvent.VK_P && gameTimer.isRunning()){
+                gameTimer.stop();
             }else {
-                timer.start();
+                gameTimer.start();
             }
 
         }
+
     }
 
+    class FieldKeyListener2 extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
 
+            super.keyPressed(e);
+            int key = e.getKeyCode();
+            if (key == KeyEvent.VK_A && !snake2.getRightMove()) {
+                snake2.setLeftMove(true);
+                snake2.setUpMove(false);
+                snake2.setDownMove(false);
+                snake2.turnHeadLeft();
+            }
+            if (key == KeyEvent.VK_D && !snake2.getLeftMove()) {
+                snake2.setRightMove(true);
+                snake2.setUpMove(false);
+                snake2.setDownMove(false);
+                snake2.turnHeadRight();
+            }
+
+            if (key == KeyEvent.VK_W && !snake2.getDownMove()) {
+                snake2.turnHeadUp();
+                snake2.setRightMove(false);
+                snake2.setUpMove(true);
+                snake2.setLeftMove(false);
+
+            }
+            if (key == KeyEvent.VK_S && !snake2.getUpMove()) {
+                snake2.turnHeadDown();
+                snake2.setRightMove(false);
+                snake2.setDownMove(true);
+                snake2.setLeftMove(false);
+            }
+        }
+    }
 }
