@@ -1,6 +1,8 @@
 package menu;
 
+import gameLogic.GameLogicSolo;
 import gameLogic.GameWindow;
+import player.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +22,9 @@ public class ModeMenu extends JPanel {
 
         soloGameButton.setBounds(400, 300, 200, 50);
         soloGameButton.addActionListener(e -> {
-            new GameWindow();
             menu.setVisible(false);
+            new GameWindow();
+
         });
 
         multiplayerGameButton.setBounds(400, 400, 200, 50);

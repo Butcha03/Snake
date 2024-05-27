@@ -13,7 +13,7 @@ public class StartMenu extends JPanel {
         label.setBounds(440, 200, 200, 50);
         add(label);
 
-        JButton startButton = new JButton("Начать");
+        JButton startButton = new JButton("Играть");
         JButton optionsButton = new JButton("Настройки");
         JButton exitButton = new JButton("Выход");
 
@@ -22,6 +22,8 @@ public class StartMenu extends JPanel {
                 menu.getCardLayout().show(menu.getContentPane(), "modeMenu"));
 
         optionsButton.setBounds(400, 400, 200, 50);
+        optionsButton.addActionListener(e ->
+                menu.getCardLayout().show(menu.getContentPane(), "optionMenu"));
 
         exitButton.setBounds(400, 500, 200, 50);
         exitButton.addActionListener(e -> System.exit(0));
