@@ -1,5 +1,6 @@
 package menu;
 
+import gameLogic.GameLogicMulti;
 import gameLogic.GameLogicSolo;
 import gameLogic.GameWindow;
 import player.Player;
@@ -23,12 +24,15 @@ public class ModeMenu extends JPanel {
         soloGameButton.setBounds(400, 300, 200, 50);
         soloGameButton.addActionListener(e -> {
             menu.setVisible(false);
-            new GameWindow();
+            new GameLogicSolo(new Player());
 
         });
 
         multiplayerGameButton.setBounds(400, 400, 200, 50);
-        multiplayerGameButton.addActionListener(e -> new GameWindow());
+        multiplayerGameButton.addActionListener(e -> {
+            menu.setVisible(false);
+            new GameLogicMulti(new Player(), new Player());
+        });
 
         backButton.setBounds(400, 500, 200, 50);
         backButton.addActionListener(e -> menu.getCardLayout().show(menu.getContentPane(), "startMenu"));

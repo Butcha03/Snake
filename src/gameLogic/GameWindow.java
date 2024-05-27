@@ -7,13 +7,18 @@ import java.awt.*;
 public class GameWindow extends JFrame {
     private final int WINDOW_WIDTH = 1000;
     private final int WINDOW_HEIGHT = 800;
+    private GameField gameField;
     public GameWindow(){
         initWindow();
-        GameField gameField = new GameField();
+        this.gameField = new GameField();
         add(gameField);
 
     }
 
+    public GameField getGameField()
+    {
+        return gameField;
+    }
     private void initWindow() {
         setTitle("Змейка");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
