@@ -13,30 +13,34 @@ import item.*;
 import player.*;
 
 public class GameField extends JPanel implements ActionListener {
-    private final int WINDOW_WIDTH = 800;
-    private final int WINDOW_HEIGHT = 1000;
-    public static final int SIZE = 600;
-    public static final int DOT_SIZE = 20;
-    public static final int ALL_DOTS = 900;
+
+    private static final int FILED_SIZE = 600;
+    private static final int FILED_X = 200;
+    private static final int FILED_Y = 100;
+    private static final int DOT_SIZE = 20;
+    private static final int ALL_DOTS = 900;
     private Timer gameTimer;
     private Image backgroundImage;
-    private Snake snake;
-    private Snake snake2;
-
     private ArrayList<AbstractItem> listItem = new ArrayList<>();
+    private ArrayList<Snake> snakes = new ArrayList<>();
 
     public GameField(){
+
+        setBounds(FILED_X, FILED_Y, FILED_SIZE, FILED_SIZE);
 
         Player player = new Player();
         Player player2 = new Player();
 
-        this.snake = player.getSnake();
-        initSnake(this.snake,0, 0);
+        Snake snake = player.getSnake();
+        initSnake(snake,0, 0);
+        snakes.add(snake);
 
-        this.snake2 = player2.getSnake();
-        initSnake(this.snake2, 0, 10);
+        Snake snake2 = player2.getSnake();
+        initSnake(snake2, 0, 10);
+        snakes.add(snake2);
 
         this.backgroundImage = new ImageIcon("resources/Images/back.png").getImage();
+
         addKeyListener(new FieldKeyListener());
         FieldKeyListener2 fieldKeyListener2 = new FieldKeyListener2();
         addKeyListener(new FieldKeyListener2());
@@ -83,32 +87,24 @@ public class GameField extends JPanel implements ActionListener {
         super.paintComponent(g);
         g.drawImage(backgroundImage,0, 0 , this);
         if(GameState.inGame){
-            for(int i = 0; i < listItem.size(); i++){
-                g.drawImage(listItem.get(i).getImage(), listItem.get(i).getX(), listItem.get(i).getY(), this);
+            for (AbstractItem abstractItem : listItem) {
+                g.drawImage(abstractItem.getImage(), abstractItem.getX(), abstractItem.getY(), this);
             }
-            for(int i = 1; i < snake.getSizeSnake(); i++){
-                g.drawImage(snake.getHeadImage(), snake.getX(0), snake.getY(0), this);
-                g.drawImage(snake.getBodyImage(), snake.getX(i), snake.getY(i), this);
-            }
-            for (int i = 1; i < snake2.getSizeSnake(); i++)
-            {
-                g.drawImage(snake2.getHeadImage(), snake2.getX(0), snake2.getY(0), this);
-                g.drawImage(snake2.getBodyImage(), snake2.getX(i), snake2.getY(i), this);
+            for (Snake snake : snakes) {
+                for (int j = 1; j < snake.getSizeSnake(); j++) {
+                    g.drawImage(snake.getHeadImage(), snake.getX(0), snake.getY(0), this);
+                    g.drawImage(snake.getBodyImage(), snake.getX(j), snake.getY(j), this);
+                }
             }
         }
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(GameState.inGame){
-            snake.checkCollisions();
-            snake.checkEnemySnake(snake2);
-            snake.move();
-            snake2.checkCollisions();
-            snake2.checkEnemySnake(snake);
-            snake2.move();
-
-            checkItem(snake);
-            checkItem(snake2);
+           for (Snake snake : snakes){
+               snake.move(snake);
+               checkItem(snake);
+           }
         }
         repaint();
 
@@ -131,31 +127,31 @@ public class GameField extends JPanel implements ActionListener {
 
             super.keyPressed(e);
             int key = e.getKeyCode();
-            if(key == leftKey && !snake.getRightMove()){
-                snake.setLeftMove(true);
-                snake.setUpMove(false);
-                snake.setDownMove(false);
-                snake.turnHeadLeft();
+            if(key == leftKey && !snakes.get(0).getRightMove()){
+                snakes.get(0).setLeftMove(true);
+                snakes.get(0).setUpMove(false);
+                snakes.get(0).setDownMove(false);
+                snakes.get(0).turnHeadLeft();
             }
-            if(key == rightKey && !snake.getLeftMove()){
-                snake.setRightMove(true);
-                snake.setUpMove(false);
-                snake.setDownMove(false);
-                snake.turnHeadRight();
+            if(key == rightKey && !snakes.get(0).getLeftMove()){
+                snakes.get(0).setRightMove(true);
+                snakes.get(0).setUpMove(false);
+                snakes.get(0).setDownMove(false);
+                snakes.get(0).turnHeadRight();
             }
 
-            if(key == upKey && !snake.getDownMove()){
-                snake.turnHeadUp();
-                snake.setRightMove(false);
-                snake.setUpMove(true);
-                snake.setLeftMove(false);
+            if(key == upKey && !snakes.get(0).getDownMove()){
+                snakes.get(0).turnHeadUp();
+                snakes.get(0).setRightMove(false);
+                snakes.get(0).setUpMove(true);
+                snakes.get(0).setLeftMove(false);
 
             }
-            if(key == downKey && !snake.getUpMove()){
-                snake.turnHeadDown();
-                snake.setRightMove(false);
-                snake.setDownMove(true);
-                snake.setLeftMove(false);
+            if(key == downKey && !snakes.get(0).getUpMove()){
+                snakes.get(0).turnHeadDown();
+                snakes.get(0).setRightMove(false);
+                snakes.get(0).setDownMove(true);
+                snakes.get(0).setLeftMove(false);
             }
             if(key == KeyEvent.VK_P && gameTimer.isRunning()){
                 gameTimer.stop();
@@ -173,31 +169,31 @@ public class GameField extends JPanel implements ActionListener {
 
             super.keyPressed(e);
             int key = e.getKeyCode();
-            if (key == KeyEvent.VK_A && !snake2.getRightMove()) {
-                snake2.setLeftMove(true);
-                snake2.setUpMove(false);
-                snake2.setDownMove(false);
-                snake2.turnHeadLeft();
+            if (key == KeyEvent.VK_A && !snakes.get(1).getRightMove()) {
+                snakes.get(1).setLeftMove(true);
+                snakes.get(1).setUpMove(false);
+                snakes.get(1).setDownMove(false);
+                snakes.get(1).turnHeadLeft();
             }
-            if (key == KeyEvent.VK_D && !snake2.getLeftMove()) {
-                snake2.setRightMove(true);
-                snake2.setUpMove(false);
-                snake2.setDownMove(false);
-                snake2.turnHeadRight();
+            if (key == KeyEvent.VK_D && !snakes.get(1).getLeftMove()) {
+                snakes.get(1).setRightMove(true);
+                snakes.get(1).setUpMove(false);
+                snakes.get(1).setDownMove(false);
+                snakes.get(1).turnHeadRight();
             }
 
-            if (key == KeyEvent.VK_W && !snake2.getDownMove()) {
-                snake2.turnHeadUp();
-                snake2.setRightMove(false);
-                snake2.setUpMove(true);
-                snake2.setLeftMove(false);
+            if (key == KeyEvent.VK_W && !snakes.get(1).getDownMove()) {
+                snakes.get(1).turnHeadUp();
+                snakes.get(1).setRightMove(false);
+                snakes.get(1).setUpMove(true);
+                snakes.get(1).setLeftMove(false);
 
             }
-            if (key == KeyEvent.VK_S && !snake2.getUpMove()) {
-                snake2.turnHeadDown();
-                snake2.setRightMove(false);
-                snake2.setDownMove(true);
-                snake2.setLeftMove(false);
+            if (key == KeyEvent.VK_S && !snakes.get(1).getUpMove()) {
+                snakes.get(1).turnHeadDown();
+                snakes.get(1).setRightMove(false);
+                snakes.get(1).setDownMove(true);
+                snakes.get(1).setLeftMove(false);
             }
         }
     }

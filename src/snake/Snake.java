@@ -1,8 +1,10 @@
 package snake;
 import gameLogic.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class Snake {
+public class Snake{
     private final int SIZE = 600;
     private final int DOT_SIZE = 20;
     private final int ALL_DOTS = 900;
@@ -13,6 +15,7 @@ public class Snake {
     private int sizeSnake;
     private int[] x = new int[SIZE];
     private int[] y = new int[SIZE];
+    private KeyAdapter FieldKeyListener;
     private boolean left = false;
     private boolean right = true;
     private boolean up = false;
@@ -21,6 +24,7 @@ public class Snake {
     public Snake(Image bodyImage, Image[] headImages)
     {
         loadImage(bodyImage, headImages);
+
         this.sizeSnake = 3;
 
     }
@@ -149,8 +153,7 @@ public class Snake {
         }
     }
 
-    public void checkEnemySnake(Snake enemySnake) {
-
+    private void checkEnemySnake(Snake enemySnake) {
         for(int i = enemySnake.getSizeSnake(); i >  0; i--)
         {
             if(x[0] == enemySnake.x[i] && y[0] == enemySnake.y[i])
@@ -160,7 +163,7 @@ public class Snake {
         }
     }
 
-    public void move(){
+    private void moveStep(){
 
         for (int i = getSizeSnake(); i > 0; i--) {
             x[i] = x[i-1];
@@ -177,6 +180,13 @@ public class Snake {
             y[0] += DOT_SIZE;
         }
 
+    }
+
+    public void move(Snake snakeEnemy)
+    {
+        checkCollisions();
+        checkEnemySnake(snakeEnemy);
+        moveStep();
     }
 
 }
