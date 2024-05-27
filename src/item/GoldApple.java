@@ -20,7 +20,7 @@ public class GoldApple extends AbstractItem{
 
     @Override
     public void setImage() {
-        appleGoldImage = new ImageIcon("resources/Images/goldApple.png").getImage();
+        appleGoldImage = new ImageIcon("resources/Images/apple gold.png").getImage();
     }
 
     @Override

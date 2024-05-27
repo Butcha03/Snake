@@ -5,7 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Snake{
-    private final int SIZE = 600;
+    private final int SIZE = 800;
     private final int DOT_SIZE = 20;
     private final int ALL_DOTS = 900;
     private Image bodyImage;
