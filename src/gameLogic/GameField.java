@@ -28,25 +28,11 @@ public class GameField extends JPanel implements ActionListener {
 
         setBounds(FILED_X, FILED_Y, FILED_SIZE, FILED_SIZE);
 
-        Player player = new Player();
-        Player player2 = new Player();
-
-        Snake snake = player.getSnake();
-        initSnake(snake,0, 0);
-        snakes.add(snake);
-
-        Snake snake2 = player2.getSnake();
-        initSnake(snake2, 0, 10);
-        snakes.add(snake2);
 
         this.backgroundImage = new ImageIcon("resources/Images/back.png").getImage();
 
         addKeyListener(new FieldKeyListener());
-        FieldKeyListener2 fieldKeyListener2 = new FieldKeyListener2();
         addKeyListener(new FieldKeyListener2());
-
-        createItem(new Apple());
-        createItem(new GoldApple());
 
         this.gameTimer = new Timer(130, this);
         this.gameTimer.start();
@@ -55,14 +41,15 @@ public class GameField extends JPanel implements ActionListener {
 
     }
 
-    private void initSnake(Snake snake, int x, int y) {
+    public void initSnake(Snake snake, int x, int y) {
         for (int i = 0; i < snake.getSizeSnake(); i++) {
             snake.setX((60+x*20) - i*DOT_SIZE, i);
             snake.setY(60+y*20, i);
         }
+        snakes.add(snake);
     }
 
-    private void createItem(AbstractItem item)
+    public void createItem(AbstractItem item)
     {
         listItem.add(item);
     }
