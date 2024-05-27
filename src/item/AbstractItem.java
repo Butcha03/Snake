@@ -1,6 +1,6 @@
-package Item;
-import Snake.Snake;
-import javax.swing.*;
+package item;
+import snake.Snake;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -21,15 +21,10 @@ public abstract class AbstractItem implements Item{
     }
 
     @Override
-    public Image getImage() {
-        return appleImage;
-    }
+    abstract public Image getImage();
 
     @Override
-    public void setImage() {
-        appleImage = new ImageIcon("resources/Images/apple.png").getImage();
-    }
-
+    abstract public void setImage();
     @Override
     public void setX(int x) {
         itemX = x;

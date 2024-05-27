@@ -1,8 +1,10 @@
-package Snake;
-import GameLogic.*;
+package snake;
+import gameLogic.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class Snake {
+public class Snake{
     private final int SIZE = 600;
     private final int DOT_SIZE = 20;
     private final int ALL_DOTS = 900;
@@ -11,16 +13,18 @@ public class Snake {
     private Image[] headImages;
     private int speed;
     private int sizeSnake;
-    public int[] x = new int[SIZE];
-    public int[] y = new int[SIZE];
-    public boolean left = false;
-    public boolean right = true;
-    public boolean up = false;
-    public boolean down = false;
+    private int[] x = new int[SIZE];
+    private int[] y = new int[SIZE];
+    private KeyAdapter FieldKeyListener;
+    private boolean left = false;
+    private boolean right = true;
+    private boolean up = false;
+    private boolean down = false;
 
     public Snake(Image bodyImage, Image[] headImages)
     {
         loadImage(bodyImage, headImages);
+
         this.sizeSnake = 3;
 
     }
@@ -37,6 +41,37 @@ public class Snake {
         this.headImage = headImages[0];
     }
 
+    public void setLeftMove(boolean leftMove){
+        left = leftMove;
+    }
+
+    public boolean getLeftMove(){
+        return left;
+    }
+
+    public void setRightMove(boolean rightMove){
+        right = rightMove;
+    }
+
+    public boolean getRightMove(){
+        return right;
+    }
+
+    public void setUpMove(boolean upMove){
+        up = upMove;
+    }
+
+    public boolean getUpMove(){
+        return up;
+    }
+
+    public void setDownMove(boolean downMove){
+        down = downMove;
+    }
+
+    public boolean getDownMove(){
+        return down;
+    }
 
     public Image getBodyImage() {
         return bodyImage;
@@ -85,13 +120,25 @@ public class Snake {
         this.sizeSnake = sizeSnake;
     }
 
+    public int getX(int i) {
+        return x[i];
+    }
+    public int getY(int i) {
+        return y[i];
+    }
+    public void setX(int x, int i) {
+        this.x[i] = x;
+    }
+    public void setY(int y, int i) {
+        this.y[i] = y;
+    }
+
     public void checkCollisions(){
         for (int i = getSizeSnake(); i > 0 ; i--) {
             if(i>4 && x[0] == x[i] && y[0] == y[i]){
                 GameState.inGame = false;
             }
         }
-
         if(x[0]>=SIZE){
             GameState.inGame = false;
         }
@@ -106,7 +153,17 @@ public class Snake {
         }
     }
 
-    public void move(){
+    private void checkEnemySnake(Snake enemySnake) {
+        for(int i = enemySnake.getSizeSnake(); i >  0; i--)
+        {
+            if(x[0] == enemySnake.x[i] && y[0] == enemySnake.y[i])
+            {
+                GameState.inGame = false;
+            }
+        }
+    }
+
+    private void moveStep(){
 
         for (int i = getSizeSnake(); i > 0; i--) {
             x[i] = x[i-1];
@@ -123,6 +180,13 @@ public class Snake {
             y[0] += DOT_SIZE;
         }
 
+    }
+
+    public void move(Snake snakeEnemy)
+    {
+        checkCollisions();
+        checkEnemySnake(snakeEnemy);
+        moveStep();
     }
 
 }

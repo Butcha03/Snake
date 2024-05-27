@@ -1,8 +1,7 @@
-package GameLogic;
-
-import GameLogic.GameFieldTest;
+package gameLogic;
 
 import javax.swing.*;
+import java.awt.*;
 
 
 public class GameWindow extends JFrame {
@@ -10,7 +9,9 @@ public class GameWindow extends JFrame {
     private final int WINDOW_HEIGHT = 800;
     public GameWindow(){
         initWindow();
-        add(new GameFieldTest());
+        GameField gameField = new GameField();
+        add(gameField);
+
     }
 
     private void initWindow() {
@@ -19,6 +20,7 @@ public class GameWindow extends JFrame {
         setSize(WINDOW_WIDTH,WINDOW_HEIGHT);
         setResizable(false);
         setLocationRelativeTo(null);
+        setLayout(null);
         setVisible(true);
     }
 

@@ -1,9 +1,10 @@
-package Player;
+package player;
 
-import Snake.Snake;
+import snake.Snake;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 
 public class Player {
     private Snake snake;

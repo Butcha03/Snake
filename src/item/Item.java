@@ -1,5 +1,5 @@
-package Item;
-import Snake.*;
+package item;
+import snake.*;
 import java.awt.*;
 
 public interface Item {
