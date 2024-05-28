@@ -1,14 +1,13 @@
 package snake;
+import GameUI.Field;
 import gameLogic.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class Snake{
     private final int SIZE = 600;
     private final int DOT_SIZE = 20;
-    private final int ALL_DOTS = 900;
     private String name;
     private Image bodyImage;
     private Image headImage;
@@ -27,7 +26,7 @@ public class Snake{
     {
         loadImage(bodyImage, headImages);
         this.name = name;
-        this.sizeSnake = 7;
+        this.sizeSnake = 3;
 
     }
     public Snake(Image bodyImage, Image[] headImages,
@@ -140,32 +139,32 @@ public class Snake{
         this.y[i] = y;
     }
 
-    public void checkCollisions(){
+    public void checkCollisions(Field gameField){
         for (int i = getSizeSnake(); i > 0 ; i--) {
             if(i>4 && x[0] == x[i] && y[0] == y[i]){
-                GameState.inGame = false;
+                GameState.lose(this, gameField);
             }
         }
         if(x[0]>=SIZE){
-            GameState.inGame = false;
+            GameState.lose(this, gameField);
         }
         if(x[0]<0){
-            GameState.inGame = false;
+            GameState.lose(this, gameField);
         }
         if(y[0]>=SIZE){
-            GameState.inGame = false;
+            GameState.lose(this, gameField);
         }
         if(y[0]<0){
-            GameState.inGame = false;
+            GameState.lose(this, gameField);
         }
     }
 
-    public void checkEnemySnake(ArrayList<Snake> enemySnakes, GameField gameField) {
+    public void checkEnemySnake(ArrayList<Snake> enemySnakes, Field gameField) {
         for(Snake snake: enemySnakes) {
             if(!enemySnakes.equals(snake)) {
                 for (int i = snake.getSizeSnake(); i > 0; i--) {
                     if (x[0] == snake.x[i] && y[0] == snake.y[i]) {
-                        GameState.victory(snake, gameField);
+                        GameState.lose(this, gameField);
                     }
                 }
             }

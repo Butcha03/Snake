@@ -1,5 +1,6 @@
-package gameLogic;
+package GameUI;
 
+import gameLogic.GameState;
 import snake.*;
 
 import javax.swing.*;
@@ -10,9 +11,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import item.*;
-import player.*;
 
-public class GameField extends JPanel implements ActionListener {
+public class Field extends JPanel implements ActionListener {
 
     private static final int FILED_SIZE = 600;
     private static final int FILED_X = 200;
@@ -24,7 +24,7 @@ public class GameField extends JPanel implements ActionListener {
     private ArrayList<AbstractItem> listItem = new ArrayList<>();
     private ArrayList<Snake> snakes = new ArrayList<>();
 
-    public GameField(){
+    public Field(){
 
         setBounds(FILED_X, FILED_Y, FILED_SIZE, FILED_SIZE);
 
@@ -90,7 +90,7 @@ public class GameField extends JPanel implements ActionListener {
         if(GameState.inGame){
             for (Snake snake : snakes) {
                 snake.moveStep();
-                snake.checkCollisions();
+                snake.checkCollisions(this);
                 snake.checkEnemySnake(snakes, this);
                 checkItem(snake);
             }

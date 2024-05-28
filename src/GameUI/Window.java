@@ -1,21 +1,20 @@
-package gameLogic;
+package GameUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 
-public class GameWindow extends JFrame {
+public class Window extends JFrame {
     private final int WINDOW_WIDTH = 1000;
     private final int WINDOW_HEIGHT = 800;
-    private GameField gameField;
-    public GameWindow(){
+    private Field gameField;
+    public Window(){
         initWindow();
-        this.gameField = new GameField();
+        this.gameField = new Field();
         add(gameField);
 
     }
 
-    public GameField getGameField()
+    public Field getGameField()
     {
         return gameField;
     }

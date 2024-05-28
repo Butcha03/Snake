@@ -1,12 +1,9 @@
 package menu;
 
-import gameLogic.GameWindow;
 import player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
     private int menuWidth = 1000;
