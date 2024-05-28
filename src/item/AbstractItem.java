@@ -15,10 +15,21 @@ public abstract class AbstractItem implements Item{
         setImage();
         create();
     }
+
     public void create(){
-        itemX = new Random().nextInt(20)*DOT_SIZE;
-        itemY = new Random().nextInt(20)*DOT_SIZE;
+        // Вычисляем количество клеток по горизонтали и вертикали
+        int cellsX = (760 - 40) / DOT_SIZE;
+        int cellsY = (760 - 40) / DOT_SIZE;
+
+        // Генерируем случайные индексы клеток
+        int randomCellX = new Random().nextInt(cellsX);
+        int randomCellY = new Random().nextInt(cellsY);
+
+        // Вычисляем координаты центра клетки
+        itemX = 40 + randomCellX * DOT_SIZE;
+        itemY = 40 + randomCellY * DOT_SIZE;
     }
+
 
     @Override
     abstract public Image getImage();
