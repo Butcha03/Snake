@@ -88,10 +88,12 @@ public class GameField extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(GameState.inGame){
-           for (Snake snake : snakes){
-               snake.move(snake);
-               checkItem(snake);
-           }
+            for (Snake snake : snakes) {
+                snake.moveStep();
+                snake.checkCollisions();
+                snake.checkEnemySnake(snakes, this);
+                checkItem(snake);
+            }
         }
         repaint();
 

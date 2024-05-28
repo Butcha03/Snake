@@ -3,11 +3,13 @@ import gameLogic.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class Snake{
     private final int SIZE = 600;
     private final int DOT_SIZE = 20;
     private final int ALL_DOTS = 900;
+    private String name;
     private Image bodyImage;
     private Image headImage;
     private Image[] headImages;
@@ -21,11 +23,11 @@ public class Snake{
     private boolean up = false;
     private boolean down = false;
 
-    public Snake(Image bodyImage, Image[] headImages)
+    public Snake(Image bodyImage, Image[] headImages, String name)
     {
         loadImage(bodyImage, headImages);
-
-        this.sizeSnake = 3;
+        this.name = name;
+        this.sizeSnake = 7;
 
     }
     public Snake(Image bodyImage, Image[] headImages,
@@ -33,6 +35,11 @@ public class Snake{
 
         loadImage(bodyImage, headImages);
         this.speed = speed;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     private void loadImage(Image bodyImage, Image[] headImages) {
@@ -153,17 +160,19 @@ public class Snake{
         }
     }
 
-    private void checkEnemySnake(Snake enemySnake) {
-        for(int i = enemySnake.getSizeSnake(); i >  0; i--)
-        {
-            if(x[0] == enemySnake.x[i] && y[0] == enemySnake.y[i])
-            {
-                GameState.inGame = false;
+    public void checkEnemySnake(ArrayList<Snake> enemySnakes, GameField gameField) {
+        for(Snake snake: enemySnakes) {
+            if(!enemySnakes.equals(snake)) {
+                for (int i = snake.getSizeSnake(); i > 0; i--) {
+                    if (x[0] == snake.x[i] && y[0] == snake.y[i]) {
+                        GameState.victory(snake, gameField);
+                    }
+                }
             }
         }
     }
 
-    private void moveStep(){
+    public void moveStep(){
 
         for (int i = getSizeSnake(); i > 0; i--) {
             x[i] = x[i-1];
@@ -180,13 +189,6 @@ public class Snake{
             y[0] += DOT_SIZE;
         }
 
-    }
-
-    public void move(Snake snakeEnemy)
-    {
-        checkCollisions();
-        checkEnemySnake(snakeEnemy);
-        moveStep();
     }
 
 }

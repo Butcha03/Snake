@@ -1,8 +1,7 @@
 package menu;
 
 import gameLogic.GameLogicMulti;
-import gameLogic.GameLogicSolo;
-import gameLogic.GameWindow;
+import gameLogic.GameLogicSingle;
 import player.Player;
 
 import javax.swing.*;
@@ -17,27 +16,26 @@ public class ModeMenu extends JPanel {
         label.setBounds(440, 200, 200, 50);
         add(label);
 
-        JButton soloGameButton = new JButton("Одиночная игра");
+        JButton singleGameButton = new JButton("Одиночная игра");
         JButton multiplayerGameButton = new JButton("Мультиплейер");
         JButton backButton = new JButton("Назад");
 
-        soloGameButton.setBounds(400, 300, 200, 50);
-        soloGameButton.addActionListener(e -> {
-            menu.setVisible(false);
-            new GameLogicSolo(new Player());
+        singleGameButton.setBounds(400, 300, 200, 50);
+        singleGameButton.addActionListener(e -> {
+            menu.getCardLayout().show(menu.getContentPane(), "singleModeMenu");
 
         });
 
         multiplayerGameButton.setBounds(400, 400, 200, 50);
         multiplayerGameButton.addActionListener(e -> {
             menu.setVisible(false);
-            new GameLogicMulti(new Player(), new Player());
+            new GameLogicMulti(menu.getPlayer1(), menu.getPlayer2());
         });
 
         backButton.setBounds(400, 500, 200, 50);
         backButton.addActionListener(e -> menu.getCardLayout().show(menu.getContentPane(), "startMenu"));
 
-        add(soloGameButton);
+        add(singleGameButton);
         add(multiplayerGameButton);
         add(backButton);
     }

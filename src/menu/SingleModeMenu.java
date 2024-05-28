@@ -28,14 +28,14 @@ public class SingleModeMenu extends JPanel {
         singleGameButton.setBounds(400, 300, 200, 50);
         singleGameButton.addActionListener(e -> {
             menu.setVisible(false);
-            new GameLogicSingle(new Player());
+            new GameLogicSingle(menu.getPlayer1());
 
         });
 
         classicGmeButton.setBounds(400, 400, 200, 50);
         classicGmeButton.addActionListener(e -> {
             menu.setVisible(false);
-            new GameLogicClassic(new Player());
+            new GameLogicClassic(menu.getPlayer1());
         });
 
         downloadButton.setBounds(400, 500, 200, 50);

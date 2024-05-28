@@ -16,6 +16,7 @@ public class Menu extends JFrame {
     private StartMenu startMenu;
     private ModeMenu modeMenu;
     private OptionMenu optionMenu;
+    private SingleModeMenu singleModeMenu;
     private CardLayout cardLayout;
     private Player player1;
     private Player player2;
@@ -39,6 +40,9 @@ public class Menu extends JFrame {
 
         optionMenu = new OptionMenu(this);
         add(optionMenu, "optionMenu");
+
+        singleModeMenu = new SingleModeMenu(this, player1);
+        add(singleModeMenu, "singleModeMenu");
 
         cardLayout.show(getContentPane(), "startMenu");
         setVisible(true);

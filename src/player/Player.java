@@ -8,8 +8,10 @@ import java.awt.event.KeyAdapter;
 
 public class Player {
     private Snake snake;
-    public Player(){
-        this.snake = new Snake(loadBodySnake(), loadHeadSnake());
+    private String name;
+    public Player(String name){
+        this.name = name;
+        this.snake = new Snake(loadBodySnake(), loadHeadSnake(), name);
     }
 
     private Image loadBodySnake() {
