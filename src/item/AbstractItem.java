@@ -16,8 +16,8 @@ public abstract class AbstractItem implements Item{
         create();
     }
     public void create(){
-        itemX = new Random().nextInt(20)*DOT_SIZE;
-        itemY = new Random().nextInt(20)*DOT_SIZE;
+        itemX = new Random().nextInt(30)*DOT_SIZE;
+        itemY = new Random().nextInt(30)*DOT_SIZE;
     }
 
     @Override

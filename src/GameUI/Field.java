@@ -15,8 +15,8 @@ import item.*;
 public class Field extends JPanel implements ActionListener {
 
     private static final int FILED_SIZE = 600;
-    private static final int FILED_X = 200;
-    private static final int FILED_Y = 100;
+    private static final int FILED_X = 100;
+    private static final int FILED_Y = 25;
     private static final int DOT_SIZE = 20;
     private static final int ALL_DOTS = 900;
     private Timer gameTimer;
